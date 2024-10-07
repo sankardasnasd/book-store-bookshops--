@@ -1,0 +1,41 @@
+{% extends 'admin/adminhome.html' %}
+{% block body %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Payments</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container mt-5">
+    <h2 class="mb-4">My Bookings</h2>
+    <div class="row">
+        {% for booking in data %}
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div align="center"><img src="{{ booking.BOOK.image }}" width="200" height="200"/> </div>
+                    <h5 class="card-title"> {{  booking.BOOK.title }} {{ booking.USER.lname }}</h5>
+
+                    <p class="card-text"><strong>Date:</strong> {{ booking.ORDER.date }}</p>
+                    <p class="card-text"><strong>Total Quantity:</strong> {{ booking.quantity }}</p>
+                    <p class="card-text"><strong>Name:</strong> {{ booking.ORDER.USER.fname }}{{ booking.ORDER.USER.lname }}</p>
+                    <p class="card-text"><strong>Price:</strong> {{ booking.ORDER.price }}</p>
+
+{#                    <div align="center"><a href="/admin_view_booking1/{{ i.id }}">View Details</a> </div>#}
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p>No bookings found.</p>
+        {% endfor %}
+    </div>
+</div>
+
+</body>
+</html>
+{% endblock %}

@@ -1,0 +1,523 @@
+{#{% extends 'user/userindex1.html' %}#}
+{#{% block body %}#}
+{##}
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <title>Cart View</title>#}
+{#    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">#}
+{#    <style>#}
+{#        /* General Body Styling */#}
+{#        body {#}
+{#            background-color: #FFFFFF;#}
+{#            font-family: 'Arial', sans-serif;#}
+{#            padding-bottom: 50px;#}
+{#        }#}
+{##}
+{#        .cart-title {#}
+{#            font-size: 28px;#}
+{#            margin-bottom: 30px;#}
+{#            color: #2c3e50;#}
+{#            font-weight: bold;#}
+{#        }#}
+{##}
+{#        /* Card Styles */#}
+{#        .card {#}
+{#            background-color: #fff;#}
+{#            border: none;#}
+{#            border-radius: 15px;#}
+{#            box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);#}
+{#            transition: transform 0.3s, box-shadow 0.3s;#}
+{#            overflow: hidden;#}
+{#        }#}
+{##}
+{#        .card:hover {#}
+{#            transform: translateY(-10px);#}
+{#            box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.2);#}
+{#        }#}
+{##}
+{#        .card img {#}
+{#            border-top-left-radius: 15px;#}
+{#            border-top-right-radius: 15px;#}
+{#            max-height: 250px;#}
+{#            object-fit: cover;#}
+{#        }#}
+{##}
+{#        .card-title {#}
+{#            font-size: 18px;#}
+{#            color: #34495e;#}
+{#            font-weight: bold;#}
+{#            margin-bottom: 10px;#}
+{#        }#}
+{##}
+{#        .card-text {#}
+{#            font-size: 14px;#}
+{#            color: #7f8c8d;#}
+{#        }#}
+{##}
+{#        .price-text {#}
+{#            font-size: 16px;#}
+{#            color: #e74c3c;#}
+{#            font-weight: bold;#}
+{#        }#}
+{##}
+{#        /* Remove Button Styling */#}
+{#        .remove-button {#}
+{#            background-color: #e74c3c; /* Red for Remove */#}
+{#            color: white;#}
+{#            border: none;#}
+{#            padding: 8px 16px;#}
+{#            font-size: 12px;#}
+{#            border-radius: 20px;#}
+{#            cursor: pointer;#}
+{#            transition: background-color 0.3s, transform 0.2s;#}
+{#        }#}
+{##}
+{#        .remove-button:hover {#}
+{#            background-color: #c0392b; /* Darker red */#}
+{#            transform: scale(1.05);#}
+{#        }#}
+{##}
+{#        /* Checkout Button */#}
+{#        .checkout-btn {#}
+{#            background-color: #2ecc71;#}
+{#            color: white;#}
+{#            font-size: 18px;#}
+{#            border: none;#}
+{#            padding: 12px 30px;#}
+{#            border-radius: 30px;#}
+{#            transition: background-color 0.3s, transform 0.2s;#}
+{#            margin-top: 20px;#}
+{#        }#}
+{##}
+{#        .checkout-btn:hover {#}
+{#            background-color: #27ae60;#}
+{#            transform: scale(1.05);#}
+{#        }#}
+{##}
+{#        /* Centering Text */#}
+{#        .text-center {#}
+{#            text-align: center;#}
+{#        }#}
+{##}
+{#        /* Responsive Card Layout */#}
+{#        @media (max-width: 768px) {#}
+{#            .card img {#}
+{#                max-height: 200px;#}
+{#            }#}
+{#        }#}
+{#    </style>#}
+{##}
+{#</head>#}
+{#<body>#}
+{#<form method="post" action="/user_booking1">#}
+{#{% csrf_token %}#}
+{#<div class="container mt-4">#}
+{#    <h2 class="cart-title text-center">Booking</h2>#}
+{#    <div class="row">#}
+{#        <div class="col-md-4 mb-4"></div>#}
+{#        {% for item in data %}#}
+{#        <div class="col-md-4 mb-4">#}
+{#            <div class="card">#}
+{#                <img src="{{ item.image }}" class="card-img-top" alt="{{ item.title }}">#}
+{#                <div class="card-body text-center">#}
+{#                    <h5 class="card-title">{{ item.title }}</h5>#}
+{#                    <p class="card-text">by {{ item.author }}</p>#}
+{#                    <p class="card-text price-text">Price: {{ item.price }}</p>#}
+{#                    <p class="card-text">Quantity:#}
+{#                        <input type="number" name="qty" value="1" min="1" class="form-control w-50 mx-auto" style="display: inline-block;" required>#}
+{#                    </p>#}
+{#                </div>#}
+{#                <div class="card-footer text-center">#}
+{#                    <a href="/remove_cart/{{ item.id }}" class="remove-button">REMOVE</a>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#        {% empty %}#}
+{#        <div class="col-12">#}
+{#            <p class="text-center">Your cart is empty.</p>#}
+{#        </div>#}
+{#        {% endfor %}#}
+{#    </div>#}
+{##}
+{#    <div class="text-center">#}
+{#        <input type="submit" value="Proceed to Checkout" class="btn btn-primary"/>#}
+{#    </div>#}
+{#</div>#}
+{##}
+{#<div class="back-button-container">#}
+{#    <button class="back-button btn btn-info" onclick="goBack({{ id }})">Back</button>#}
+{#</div>#}
+{##}
+{#</form>#}
+{#<script>#}
+{#    // Function to go back to the previous page with the correct ID#}
+{#    function goBack(id) {#}
+{#        // Construct the URL dynamically using the id#}
+{#    }#}
+{#</script>#}
+{#<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>#}
+{#<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>#}
+{#<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>#}
+{#</body>#}
+{#</html>#}
+{##}
+{##}
+{##}
+{##}
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <title>Cart View</title>#}
+{#    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">#}
+{#    <style>#}
+{#        /* General Body Styling */#}
+{#        body {#}
+{#            background-color: #FFFFFF;#}
+{#            font-family: 'Arial', sans-serif;#}
+{#            padding-bottom: 50px;#}
+{#        }#}
+{##}
+{#        .cart-title {#}
+{#            font-size: 28px;#}
+{#            margin-bottom: 30px;#}
+{#            color: #2c3e50;#}
+{#            font-weight: bold;#}
+{#        }#}
+{##}
+{#        /* Card Styles */#}
+{#        .card {#}
+{#            background-color: #fff;#}
+{#            border: none;#}
+{#            border-radius: 15px;#}
+{#            box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);#}
+{#            transition: transform 0.3s, box-shadow 0.3s;#}
+{#            overflow: hidden;#}
+{#        }#}
+{##}
+{#        .card:hover {#}
+{#            transform: translateY(-10px);#}
+{#            box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.2);#}
+{#        }#}
+{##}
+{#        .card img {#}
+{#            border-top-left-radius: 15px;#}
+{#            border-top-right-radius: 15px;#}
+{#            max-height: 250px;#}
+{#            object-fit: cover;#}
+{#        }#}
+{##}
+{#        .card-title {#}
+{#            font-size: 18px;#}
+{#            color: #34495e;#}
+{#            font-weight: bold;#}
+{#            margin-bottom: 10px;#}
+{#        }#}
+{##}
+{#        .card-text {#}
+{#            font-size: 14px;#}
+{#            color: #7f8c8d;#}
+{#        }#}
+{##}
+{#        .price-text {#}
+{#            font-size: 16px;#}
+{#            color: #e74c3c;#}
+{#            font-weight: bold;#}
+{#        }#}
+{##}
+{#        /* Remove Button Styling */#}
+{#        .remove-button {#}
+{#            background-color: #e74c3c; /* Red for Remove */#}
+{#            color: white;#}
+{#            border: none;#}
+{#            padding: 8px 16px;#}
+{#            font-size: 12px;#}
+{#            border-radius: 20px;#}
+{#            cursor: pointer;#}
+{#            transition: background-color 0.3s, transform 0.2s;#}
+{#        }#}
+{##}
+{#        .remove-button:hover {#}
+{#            background-color: #c0392b; /* Darker red */#}
+{#            transform: scale(1.05);#}
+{#        }#}
+{##}
+{#        /* Checkout Button */#}
+{#        .checkout-btn {#}
+{#            background-color: #2ecc71;#}
+{#            color: white;#}
+{#            font-size: 18px;#}
+{#            border: none;#}
+{#            padding: 12px 30px;#}
+{#            border-radius: 30px;#}
+{#            transition: background-color 0.3s, transform 0.2s;#}
+{#            margin-top: 20px;#}
+{#        }#}
+{##}
+{#        .checkout-btn:hover {#}
+{#            background-color: #27ae60;#}
+{#            transform: scale(1.05);#}
+{#        }#}
+{##}
+{#        /* Centering Text */#}
+{#        .text-center {#}
+{#            text-align: center;#}
+{#        }#}
+{##}
+{#        /* Responsive Card Layout */#}
+{#        @media (max-width: 768px) {#}
+{#            .card img {#}
+{#                max-height: 200px;#}
+{#            }#}
+{#        }#}
+{#    </style>#}
+{##}
+{#</head>#}
+{#<body>#}
+{#<form method="post" action="/user_booking1">#}
+{#    {% csrf_token %}#}
+{#    <div class="container mt-4">#}
+{#        <h2 class="cart-title text-center">Booking</h2>#}
+{#        <div class="row">#}
+{#            <div class="col-md-4 mb-4"></div>#}
+{#            {% for item in data %}#}
+{#            <div class="col-md-4 mb-4">#}
+{#                <div class="card">#}
+{#                    <img src="{{ item.image }}" class="card-img-top" alt="{{ item.title }}">#}
+{#                    <div class="card-body text-center">#}
+{#                        <h5 class="card-title">{{ item.title }}</h5>#}
+{#                        <p class="card-text">by {{ item.author }}</p>#}
+{#                        <p class="card-text price-text">Price: {{ item.price }}</p>#}
+{#                        <p class="card-text">Quantity:#}
+{#                            <input type="number" name="qty" value="1" min="1" class="form-control w-50 mx-auto" style="display: inline-block;" required>#}
+{#                        </p>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#            {% empty %}#}
+{#            <div class="col-12">#}
+{#                <p class="text-center">Your cart is empty.</p>#}
+{#            </div>#}
+{#            {% endfor %}#}
+{#        </div>#}
+{##}
+{#        <div class="text-center">#}
+{#            <input type="submit" value="Proceed to Checkout" class="btn btn-primary"/>#}
+{##}
+{#        </div>#}
+{#    </div>#}
+{##}
+{##}
+{#</form>#}
+{#  <div class="back-button-container">#}
+{#            <button class="back-button btn btn-info" onclick="goBack()">Back</button>#}
+{#        </div>#}
+{##}
+{#<script>#}
+{#        // Function to go back to the previous page#}
+{#        function goBack() {#}
+{#            window.history.back();#}
+{#        }#}
+{#    </script>#}
+{##}
+{#<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>#}
+{#<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>#}
+{#<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>#}
+{#</body>#}
+{#</html>#}
+{#{% endblock %}#}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cart View</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Font Awesome -->
+    <style>
+        /* General Body Styling */
+        body {
+            background-color: #FFFFFF;
+            font-family: 'Arial', sans-serif;
+            padding-bottom: 50px;
+        }
+
+        .cart-title {
+            font-size: 28px;
+            margin-bottom: 30px;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+
+        /* Card Styles */
+        .card {
+            background-color: #fff;
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.2);
+        }
+
+        .card img {
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+            max-height: 250px;
+            object-fit: cover;
+        }
+
+        .card-title {
+            font-size: 18px;
+            color: #34495e;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .card-text {
+            font-size: 14px;
+            color: #7f8c8d;
+        }
+
+        .price-text {
+            font-size: 16px;
+            color: #e74c3c;
+            font-weight: bold;
+        }
+
+        /* Remove Button Styling */
+        .remove-button {
+            background-color: #e74c3c; /* Red for Remove */
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            font-size: 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .remove-button:hover {
+            background-color: #c0392b; /* Darker red */
+            transform: scale(1.05);
+        }
+
+        /* Checkout Button */
+        .checkout-btn {
+            background-color: #2ecc71;
+            color: white;
+            font-size: 18px;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            transition: background-color 0.3s, transform 0.2s;
+            margin-top: 20px;
+        }
+
+        .checkout-btn:hover {
+            background-color: #27ae60;
+            transform: scale(1.05);
+        }
+
+        /* Centering Text */
+        .text-center {
+            text-align: center;
+        }
+
+        /* Responsive Card Layout */
+        @media (max-width: 768px) {
+            .card img {
+                max-height: 200px;
+            }
+        }
+
+        /* Navbar Customization */
+        .navbar .navbar-nav .nav-link {
+            margin-right: 15px;
+        }
+    </style>
+
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/user_home">Educity Book Store</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/user_home">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/user_view_profile">Profile</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/user_view_orders">Orders</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="/view_cart"><i class="fas fa-shopping-cart"></i>{{ request.session.cid }} Cart</a> <!-- Cart Icon -->
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<form method="post" action="/user_booking1">
+    {% csrf_token %}
+    <div class="container mt-4">
+        <h2 class="cart-title text-center">Booking</h2>
+        <div class="row">
+            <div class="col-md-4 mb-4"></div>
+            {% for item in data %}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="{{ item.image }}" class="card-img-top" alt="{{ item.title }}">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">{{ item.title }}</h5>
+                        <p class="card-text">by {{ item.author }}</p>
+                        <p class="card-text price-text">Price: {{ item.price }}</p>
+                        <p class="card-text">Quantity:
+                            <input type="number" name="qty" value="1" min="1" class="form-control w-50 mx-auto" style="display: inline-block;" required>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12">
+                <p class="text-center">Your cart is empty.</p>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="text-center">
+            <input type="submit" value="Proceed to Checkout" class="btn btn-primary"/>
+        </div>
+    </div>
+</form>
+
+<div class="back-button-container">
+    <button class="back-button btn btn-info" onclick="goBack()">Back</button>
+</div>
+
+<script>
+    // Function to go back to the previous page
+    function goBack() {
+        window.history.back();
+    }
+</script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

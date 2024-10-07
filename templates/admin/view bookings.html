@@ -1,0 +1,43 @@
+{% extends 'admin/adminhome.html' %}
+{% block body %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Bookings</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container mt-5">
+    <h2 class="mb-4">My Bookings</h2>
+    <div class="row">
+        {% for booking in bookings %}
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div align="center"><img src="{{ booking.USER.image }}" width="200" height="200"/> </div>
+                    <h5 class="card-title">Booking for {{ booking.USER.fname }} {{ booking.USER.lname }}</h5>
+{#                    <p class="card-text"><strong>Books:</strong> {{ booking.BOOK. }}</p>#}
+{#                    <p class="card-text"><strong>Title:</strong> {{ booking.title }}</p>#}
+                    <p class="card-text"><strong>Place:</strong> {{ booking.place }}</p>
+                    <p class="card-text"><strong>Price:</strong>  : {{ booking.price }}</p>
+{#                    <p class="card-text"><strong>Quantity:</strong> {{ booking.qty }}</p>#}
+                    <p class="card-text"><strong>Date:</strong> {{ booking.date }}</p>
+                    <p class="card-text"><strong>Address:</strong> {{ booking.address }}, {{ booking.landmark }}, {{ booking.pin }}</p>
+                    <p class="card-text"><strong>Status:</strong> {{ booking.status }}</p>
+                    <div align="center"><a href="/admin_view_booking1/{{ booking.id }}">View Details</a> </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p>No bookings found.</p>
+        {% endfor %}
+    </div>
+</div>
+
+</body>
+</html>
+{% endblock %}
